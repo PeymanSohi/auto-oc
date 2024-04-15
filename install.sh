@@ -30,7 +30,7 @@ handle_error() {
 }
 trap 'handle_error' ERR
 
-certbot certonly --standalone --preferred-challenges http --non-interactive --agree-tos --email $email -d $domain
+certbot certonly --http-01-port 8080 --standalone --preferred-challenges http --non-interactive --agree-tos --email $email -d $domain
 
 if [ -n "$domain" ]; then
     touch "/etc/nginx/conf.d/$domain.conf"
@@ -54,7 +54,7 @@ handle_error() {
 }
 trap 'handle_error' ERR
 
-certbot certonly --force-renewal --standalone --preferred-challenges http --non-interactive --agree-tos --email $email -d $domain -w /var/www/ocserv
+certbot certonly --force-renewal --http-01-port 8080 --standalone --preferred-challenges http --non-interactive --agree-tos --email $email -d $domain -w /var/www/ocserv
 
 cp ./ocserv.conf /etc/ocserv/ocserv.conf
 
